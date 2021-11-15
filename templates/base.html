@@ -1,0 +1,17 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Load favicon, bootstrap and weather icons -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" id="bootstrap-css">
+        <link rel="stylesheet" href="{% static 'css/weather-icons.css' %}" id="weather-icons-css">
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+    </head>
+    <body>
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+    </body>
+</html>
