@@ -5,9 +5,11 @@ name = "pypi"
 
 [packages]
 django = "*"
-neovim = "*"
+django-solo = "*"
 
 [dev-packages]
+neovim = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.9"
