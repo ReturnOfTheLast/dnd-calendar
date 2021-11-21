@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def test(request):
-    return render(request, 'dcalendar/test.html')
+def calendar(request):
+    return render(request, 'dcalendar/calendar.html')

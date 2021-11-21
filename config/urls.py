@@ -4,5 +4,5 @@ from django.urls.conf import include, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('dcalendar.urls')),
+    path('calendar/', include('dcalendar.urls')),
 ]
