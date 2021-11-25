@@ -3,7 +3,18 @@ from .models import CalendarConfig, Calendar
 # Date Functions
 # dsbt -> Days Since Beginning of Time
 def get_dsbt(day: int, month: int, year: int) -> int:
-    pass
+    calendar_config = get_calendar_config()
+
+    days_in_year = 0
+    for m in calendar_config["months"]:
+        days_in_year += m["duration"]
+
+    days_to_month = 0
+    for i in range(month-1):
+        days_to_month += calendar_config["months"][i]["duration"]
+
+    return days_in_year * year + days_to_month + day
+
 
 def date_str_to_nums(datestr: str) -> (int, int, int):
     try:
@@ -62,5 +73,8 @@ def moon_get_icon(phase: int) -> str:
 
 
 # Calendar Functions
-def get_calendar_config() -> Calendar:
-    return CalendarConfig.objects.get().activeCalendar
+def get_calendar_config() -> dict:
+    return CalendarConfig.get_solo().activeCalendar.config
+
+def get_calendar_name() -> str:
+    return CalendarConfig.get_solo().activeCalendar.name

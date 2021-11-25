@@ -2,72 +2,55 @@
 
 {% load calendar_extras %}
 
+{% block title %}{{ name }} - {{ month_name }} {{ year_name }}{% endblock title %}
+
 {% block content %}
-<div class="container p-3">
-        <table class="table table-bordered border-dark">
-                <thead>
-                        <tr>
-                                <th scope="col">Weekday 1</th>
-                                <th scope="col">Weekday 2</th>
-                                <th scope="col">Weekday 3</th>
-                                <th scope="col">Weekday 4</th>
-                                <th scope="col">Weekday 5</th>
-                                <th scope="col">Weekday 6</th>
-                                <th scope="col">Weekday 7</th>
-                        </tr>
-                </thead>
-                <tbody>
-                        <tr>
-                                <td>
-                                <p><b>1</b></p>
-                                <i class="wi wi-moon-alt-new"></i>
-                                <i class="wi wi-moon-alt-full"></i>
-                                <i class="wi wi-moon-alt-third-quarter"></i>
-                                </td>
-                                
-                                <td>
-                                <p><b>2</b></p>
-                                <i class="wi wi-moon-alt-new"></i>
-                                <i class="wi wi-moon-alt-full"></i>
-                                <i class="wi wi-moon-alt-third-quarter"></i>
-                                </td>
-                                
-                                <td>
-                                <p><b>3</b></p>
-                                <i class="wi wi-moon-alt-new"></i>
-                                <i class="wi wi-moon-alt-full"></i>
-                                <i class="wi wi-moon-alt-third-quarter"></i>
-                                </td>
-                                
-                                <td>
-                                <p><b>4</b></p>
-                                <i class="wi wi-moon-alt-new"></i>
-                                <i class="wi wi-moon-alt-full"></i>
-                                <i class="wi wi-moon-alt-third-quarter"></i>
-                                </td>
-                                
-                                <td>
-                                <p><b>5</b></p>
-                                <i class="wi wi-moon-alt-new"></i>
-                                <i class="wi wi-moon-alt-full"></i>
-                                <i class="wi wi-moon-alt-third-quarter"></i>
-                                </td>
-                                
-                                <td>
-                                <p><b>6</b></p>
-                                <i class="wi wi-moon-alt-new"></i>
-                                <i class="wi wi-moon-alt-full"></i>
-                                <i class="wi wi-moon-alt-third-quarter"></i>
-                                </td>
-                                
-                                <td>
-                                <p><b>7</b></p>
-                                <i class="wi wi-moon-alt-new"></i>
-                                <i class="wi wi-moon-alt-full"></i>
-                                <i class="wi wi-moon-alt-third-quarter"></i>
-                                </td>
-                        </tr>
-                </tbody>
-        </table>
-</div>
+<form class="row g-3" method="GET">
+    <div class="col-md-4">
+        <label class="form-label" for="month">Month</label>
+        <select class="form-select" id="month" name="month">
+            {% for month in months %}
+            <option value="{{ forloop.counter }}" {% if forloop.counter == month_id %}selected{% endif %}>{{ forloop.counter }}. {{ month.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label" for="year">Year</label>
+        <input type="text" class="form-control" id="year" name="year" value="{{ year_name }}">
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-secondary">Update</button>
+    </div>
+</form>
+<br>
+<table class="table table-bordered border-dark" style="table-layout: fixed;">
+    <thead>
+        <tr>
+            {% for weekday in weekdays %}
+            <th scope="col">{{ weekday }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in days %}
+        <tr>
+            {% for cell in row %}
+            {% if cell.num == '' %}
+            <td class="table-dark border-0"></td>
+            {% else %}
+            <td>
+                <p><b>{{ cell.num }}</b></p>
+                {% for moon in cell.moons %}
+                <i class="wi wi-moon-alt-{{ moon.icon }} fs-4" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ moon.name }} - {{ moon.phase_name }}"></i>
+                {% endfor %}
+                {% for holiday in cell.holidays %}
+                <p>{{ holiday.name }}</p>
+                {% endfor %}
+            </td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock content %}

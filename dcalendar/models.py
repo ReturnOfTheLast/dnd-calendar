@@ -52,8 +52,6 @@ class Calendar(models.Model):
     config = models.JSONField()
 
 class CalendarConfig(SingletonModel):
-    def __str__(self):
-        return f"Calendar: {name}"
 
     class Meta:
         verbose_name = "Calendar Config"

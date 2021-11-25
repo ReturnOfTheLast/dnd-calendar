@@ -6,12 +6,16 @@
         <!-- Load favicon, bootstrap and weather icons -->
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" id="bootstrap-css">
         <link rel="stylesheet" href="{% static 'css/weather-icons.css' %}" id="weather-icons-css">
-        <script src="{% static 'js/bootstrap.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+        <title>{% block title %}{% endblock title %}</title>
     </head>
     <body>
         <main>
-            {% block content %}
-            {% endblock content %}
+            <div class="container p-3">
+                {% block content %}
+                {% endblock content %}
+            </div>
         </main>
     </body>
 </html>
