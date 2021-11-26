@@ -20,8 +20,7 @@ def calendar_view(request):
             month_holidays.append(holiday)
 
     prepend_count = get_dsbt(0, month_id, year_id) % days_in_week
-    append_count = days_in_week - ((prepend_count + day_count) % days_in_week)
-    if append_count == days_in_week: append_count = 0
+    append_count = days_in_week - (((prepend_count + day_count - 1) % days_in_week) + 1)
 
     days_lin = list()
 
